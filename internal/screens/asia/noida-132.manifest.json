@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "contentDelivery": {
+    "providers": [
+      {
+        "name": "franklin",
+        "endpoint": "/"
+      }
+    ],
+    "defaultProvider": "franklin"
+  },
+  "timestamp": 1681391304463,
+  "entries": [
+    {
+      "path": "/internal/screens/asia/noida-132.html",
+      "timestamp": 1681310876000
+    },
+    {
+      "path": "/scripts/lib-franklin.js",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/scripts/scripts.js",
+      "timestamp": 1680776440000
+    },
+    {
+      "path": "/styles/styles.css",
+      "timestamp": 1680776440000
+    },
+    {
+      "path": "/scripts/delayed.js",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/columns/columns.css",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/columns/columns.js",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/header/header.js",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/header/header.css",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/footer/footer.js",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/blocks/footer/footer.css",
+      "timestamp": 1680776439000
+    },
+    {
+      "path": "/styles/lazy-styles.css",
+      "timestamp": 1680776440000
+    }
+  ]
+}

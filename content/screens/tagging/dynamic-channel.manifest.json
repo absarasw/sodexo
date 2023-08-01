@@ -1,0 +1,83 @@
+{
+  "version": "3.0",
+  "contentDelivery": {
+    "providers": [
+      {
+        "name": "franklin",
+        "endpoint": "/"
+      }
+    ],
+    "defaultProvider": "franklin"
+  },
+  "timestamp": 1690206040260,
+  "entries": [
+    {
+      "path": "/content/screens/tagging/dynamic-channel.html",
+      "timestamp": 1690206039514
+    },
+    {
+      "path": "/scripts/lib-franklin.js",
+      "timestamp": 1690200575000
+    },
+    {
+      "path": "/scripts/scripts.js",
+      "timestamp": 1690200575000
+    },
+    {
+      "path": "/styles/styles.css",
+      "timestamp": 1690200575000
+    },
+    {
+      "path": "/scripts/delayed.js",
+      "timestamp": 1690200574000
+    },
+    {
+      "path": "/blocks/columns/columns.css",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/blocks/columns/columns.js",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/blocks/header/header.js",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/blocks/header/header.css",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/blocks/footer/footer.js",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/blocks/footer/footer.css",
+      "timestamp": 1690200573000
+    },
+    {
+      "path": "/styles/lazy-styles.css",
+      "timestamp": 1690200575000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/paneer-parantha.png",
+      "timestamp": 1690204788000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/peanut-poha.png",
+      "timestamp": 1690204764000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/list-of-assets.json",
+      "timestamp": 1690205006000
+    },
+    {
+      "path": "/blocks/breakfast/breakfast.css",
+      "timestamp": 1690202419000
+    },
+    {
+      "path": "/blocks/breakfast/breakfast.js",
+      "timestamp": 1690202404000
+    }
+  ]
+}

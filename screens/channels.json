@@ -1,0 +1,24 @@
+{
+  "channels": [
+    {
+      "manifestPath": "/content/screens/tagging/dynamic-channel.manifest.json",
+      "lastModified": "2023-07-24T13:40:39.514Z",
+      "hierarchy": [
+        {
+          "title": "screens",
+          "path": "/content/screens"
+        },
+        {
+          "title": "tagging",
+          "path": "/content/screens/tagging"
+        }
+      ],
+      "externalId": "/content/screens/tagging/dynamic-channel",
+      "title": "Dynamic Channel",
+      "liveUrl": "https://main--tagging-sodexo--addyken.hlx.live/content/screens/tagging/dynamic-channel.html"
+    }
+  ],
+  "metadata": {
+    "providerType": "franklin"
+  }
+}

@@ -1,0 +1,178 @@
+<html lang="en-US">
+             <head>
+               <title></title>
+               <script type="module">const assets = JSON.parse('[{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_1e35b44886d883e448e9eb8193e17f1f54a6314e7.mp4","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"25/01/2023","launchEndDate":"25/05/2023","type":"video","isGMT":true},{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_1f1f4d4fcd26f737bcb93e6db879418649b8af537.jpeg#width=275&height=183","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"15/01/2023","launchEndDate":"15/05/2023","type":"image","isGMT":true},{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_10f5ef2269799e8aaba7fad164a2e13aeefdc0ed6.jpeg#width=275&height=183","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"25/01/2023","launchEndDate":"10/5/2023","type":"image"},{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_151b47a8253a306f179f9a08fab32fd477fd90e01.jpeg#width=266&height=190","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"25/01/2023","launchEndDate":"30/05/2023","type":"image"},{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_1d85574efe859e331893efabf1de02a1a06132e63.mp4","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"25/01/2023","launchEndDate":"30/05/2023","type":"video"},{"link":"https://main--inside-adobe-screens--hlxsites.hlx.page/media_1a8be5b4cb3c3de5ec70f4a5c50dfc8d7f665ab05.jpeg#width=259&height=194","startTime":"12:10:00 AM","endTime":"11:00:00 PM","launchStartDate":"15/01/2023","launchEndDate":"15/05/2023","type":"image"}]');
+    let currentIndex = 0;
+    const parseStartDateString = (dateString, isGMT) => {
+        if (!dateString) {
+            return new Date();
+        }
+        return parseDateString(dateString, isGMT);
+    }
+    const parseEndDateString = (dateString, isGMT) => {
+        if (!dateString) {
+            const date = new Date();
+            date.setFullYear(date.getFullYear() + 10);
+            return date;
+        }
+        return parseDateString(dateString, isGMT);
+    }
+    const parseStartTimeString = (timeString, isGMT) => {
+        if (!timeString) {
+            return new Date();
+        }
+        return parseTimeString(timeString, isGMT);
+    }
+    const parseEndTimeString = (timeString, isGMT) => {
+        if (!timeString) {
+            const date = new Date();
+            date.setFullYear(date.getFullYear() + 10);
+            return date;
+        }
+        return parseTimeString(timeString, isGMT);
+    }
+
+    const parseDateString = (dateString, isGMT) => {
+        const dateParts = dateString.split('/');
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1;
+        const year = parseInt(dateParts[2], 10);
+        if (isGMT) {
+            return new Date(Date.UTC(year, month, day));
+        }
+        return new Date(year, month, day);
+    }
+    const parseTimeString = (timeString, isGMT) => {
+        const parts = timeString.split(':');
+        let hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        const seconds = parseInt(parts[2].split(' ')[0], 10);
+        const isPM = (timeString.indexOf('PM') > -1);
+        if (isPM && hours < 12) {
+            hours += 12;
+        }
+        if (!isPM && hours === 12) {
+            hours -= 12;
+        }
+        const dateObj = new Date();
+        if (isGMT) {
+            dateObj.setUTCHours(hours);
+            dateObj.setUTCMinutes(minutes);
+            dateObj.setUTCSeconds(seconds);
+        } else {
+            dateObj.setHours(hours);
+            dateObj.setMinutes(minutes);
+            dateObj.setSeconds(seconds);
+        }
+        return dateObj;
+    }
+    function playAds() {
+        const container = document.getElementById('carousel-container');
+        while (currentIndex < assets.length) {
+            const asset = assets[currentIndex];
+            const launchStartDate = parseStartDateString(asset.launchStartDate, asset.isGMT);
+            const launchEndDate = parseEndDateString(asset.launchEndDate, asset.isGMT);
+            const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
+            const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
+            const now = new Date();
+            console.log(`lsd-${launchStartDate}, \n led-${launchEndDate}, \n st-${startTime}, \n et-${endTime}`);
+            if (now >= launchStartDate && now <= launchEndDate
+                && now >= startTime && now <= endTime) {
+                if (asset.type === 'image') {
+                    const img = new Image();
+                    img.src = asset.link;
+                    img.onerror = function() {
+                        incrementAdIndex();
+                        playAds();
+                    };
+                    img.onload = function() {
+                        container.innerHTML = '';
+                        container.appendChild(img);
+                        setTimeout(() => {
+                            img.classList.add('visible');
+                            setTimeout(() => {
+                                img.classList.remove('visible');
+                                container.removeChild(img);
+                                incrementAdIndex();
+                                playAds();
+                            }, 5000);
+                        }, 10);
+                    };
+                    break;
+                } else if (asset.type === 'video') {
+                    const video = document.createElement('video');
+                    video.src = asset.link;
+                    video.onerror = function() {
+                        incrementAdIndex();
+                        playAds();
+                    };
+                    video.onended = function() {
+                        video.classList.remove('visible');
+                        setTimeout(() => {
+                            container.removeChild(video);
+                            incrementAdIndex();
+                            playAds();
+                        }, 10);
+                    };
+                    video.oncanplay = function() {
+                        container.innerHTML = '';
+                        container.appendChild(video);
+                        video.play();
+                        setTimeout(() => {
+                            video.classList.add('visible');
+                        }, 10);
+                    };
+                    video.muted = true;
+                    video.playsInline = true;
+                    break;
+                }
+            } else {
+                incrementAdIndex();
+            }
+        }
+    }
+    function incrementAdIndex() {
+        currentIndex = (currentIndex + 1) % assets.length;
+    }
+    playAds();
+</script>
+               <style>body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#carousel-container {
+    /* position: relative; */
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+img, video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 1s;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.visible {
+    opacity: 1;
+}
+</style>
+             </head>
+             <body>
+               <div id="carousel-container"></div>
+             </body>
+           </html>

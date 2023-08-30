@@ -1,21 +1,11 @@
 {
   "channels": [
     {
-      "manifestPath": "/content/screens/tagging/dynamic-channel.manifest.json",
-      "lastModified": "2023-07-24T13:40:39.514Z",
-      "hierarchy": [
-        {
-          "title": "screens",
-          "path": "/content/screens"
-        },
-        {
-          "title": "tagging",
-          "path": "/content/screens/tagging"
-        }
-      ],
-      "externalId": "/content/screens/tagging/dynamic-channel",
-      "title": "Dynamic Channel",
-      "liveUrl": "https://main--tagging-sodexo--addyken.hlx.live/content/screens/tagging/dynamic-channel.html"
+      "manifestPath": "/content/screens/sodexo/lunch-menu-home-fav.manifest.json",
+      "lastModified": "2023-08-30T18:55:21.284Z",
+      "externalId": "/content/screens/sodexo/lunch-menu-home-fav",
+      "title": "BREAKFAST-MENU",
+      "liveUrl": "https://main--sodexo--absarasw.hlx.live/content/screens/sodexo/lunch-menu-home-fav.html"
     }
   ],
   "metadata": {

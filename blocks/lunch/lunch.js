@@ -163,19 +163,6 @@ export default async function decorate(block) {
         carouselContainerList[prev].classList.add('hidden-div');
         containerId = (containerId + 1) % numContainer;
 
-        /*if(containerId === 0) {
-          carouselContainerList[0].classList.add('carousel-container-show');
-          carouselContainerList[0].classList.remove('hidden-div');
-          carouselContainerList[1].classList.remove('carousel-container-show');
-          carouselContainerList[1].classList.add('hidden-div');
-          containerId = (containerId + 1) % numContainer;
-        } else {
-          carouselContainerList[1].classList.add('carousel-container-show');
-          carouselContainerList[1].classList.remove('hidden-div');
-          carouselContainerList[0].classList.remove('carousel-container-show');
-          carouselContainerList[0].classList.add('hidden-div');
-          containerId = 0;
-        }*/
         await delay(5000);
       }
     }
@@ -297,24 +284,26 @@ export default async function decorate(block) {
       throw new Error(`request to fetch ${url} failed with status code with error ${e}`);
     }
   }
+
   const parseItem = (ItemString) => {
     const lowered = ItemString.toLowerCase();
     const hyphenatedString = lowered.replace(/\s+/g, '-');
     return hyphenatedString;
   }
+
   const generateChannelHTML = async (url) => {
     const sheetDetailsList = extractSheetData(url) || [];
     console.log(JSON.stringify(sheetDetailsList));
     const assetsList = new Map();
     let errorFlag = false;
-    // 2 types for food menus for now
+
     for(let i = 0; i < sheetDetailsList.length; i++) {
       try {
         const sheetDetails = sheetDetailsList[i];
         if (!sheetDetails) {
           console.warn(`No sheet data available during HTML generation`);
         }
-        const sheetDataResponse = JSON.parse(await fetchData(sheetDetails.link)); //sheetdataresponse has the object in sodexo-schedules.json
+        const sheetDataResponse = JSON.parse(await fetchData(sheetDetails.link));
         console.log(JSON.stringify(sheetDataResponse));
         // console.log(JSON.stringify(assetListLinks));
         if (!sheetDataResponse) {

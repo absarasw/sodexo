@@ -10,7 +10,7 @@
     "lint:js": "eslint .",
     "lint:css": "stylelint blocks/**/*.css styles/*.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "generate-offlineresources": "node scripts/generateOfflineResources.js"
+    "generate-offline-resources": "node scripts/generate-offline-resources.js helixManifest='/internal/screens/manifests' helixChannelsList='/internal/screens/channels'"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "dependencies": {
     "node-fetch": "^3.3.0",
-    "@aem-screens/screens-offlineresources-generator": "0.0.3-screens-IA-B001"
+    "fs-extra": "^11.1.1",
+    "cheerio": "^1.0.0-rc.12",
+    "@aem-screens/screens-offlineresources-generator": "1.0.2"
   },
   "devDependencies": {
     "@babel/core": "7.21.0",

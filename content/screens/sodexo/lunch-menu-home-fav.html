@@ -1,0 +1,271 @@
+<html lang="en-US">
+             <head>
+               <title></title>
+               <script type="module">const assetsList = new Map(JSON.parse('[["LUNCH HOME FAVOURITE 1",[[{"menuItem":"UPMA","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"UTTAPAM","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"IDLI SAMBAAR","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"BOILED EGG","startTime":"06:57:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"TOFU RICE","startTime":"06:57:00 AM","endTime":"11:59:00 PM","isGMT":false}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch1.jpeg"]],["LUNCH HOME FAVOURITE 2",[[{"menuItem":"UPMA","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"UTTAPAM","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"IDLI SAMBAAR","startTime":"05:30:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"BOILED EGG","startTime":"06:57:00 AM","endTime":"11:59:00 PM","isGMT":false},{"menuItem":"TOFU RICE","startTime":"06:57:00 AM","endTime":"11:59:00 PM","isGMT":false}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch2.jpeg"]]]')) ;
+    let containerId = 0;
+    const carouselContainerList = [];
+    const parseTimeString = (timeString, isGMT) => {
+        const parts = timeString.split(':');
+        let hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        const seconds = parseInt(parts[2].split(' ')[0], 10);
+        const isPM = (timeString.indexOf('PM') > -1);
+        if (isPM && hours < 12) {
+            hours += 12;
+        }
+        if (!isPM && hours === 12) {
+            hours -= 12;
+        }
+        const dateObj = new Date();
+        if (isGMT) {
+            dateObj.setUTCHours(hours);
+            dateObj.setUTCMinutes(minutes);
+            dateObj.setUTCSeconds(seconds);
+        } else {
+            dateObj.setHours(hours);
+            dateObj.setMinutes(minutes);
+            dateObj.setSeconds(seconds);
+        }
+        return dateObj;
+    };
+
+    const parseStartTimeString = (timeString, isGMT) => {
+        if (!timeString) {
+            return new Date();
+        }
+        return parseTimeString(timeString, isGMT);
+    };
+
+    const parseEndTimeString = (timeString, isGMT) => {
+        if (!timeString) {
+            const date = new Date();
+            date.setFullYear(date.getFullYear() + 10);
+            return date;
+        }
+        return parseTimeString(timeString, isGMT);
+    };
+
+    const checkForPlayableAssets = async (assets = []) => {
+        console.log("check for playable assets called");
+        if (assets.length === 0) {
+            return;
+        }
+        let isActive = false;
+        assets.forEach((asset) => {
+            const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
+            const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
+            const now = new Date();
+            if (now >= startTime && now <= endTime) {
+                isActive = true;
+            }
+        });
+    };
+
+    function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function playAds() { //this function runs on loop and never stops working because of the incremented index it's always supposed to loop over the assets
+        console.log("play ads is called");
+        assetsList.forEach((lunchAssets, lunchName) => {
+
+            const main = document.getElementsByTagName('main')[0];
+            const container = document.createElement('div');
+            container.classList.add('carousel-container');
+            container.classList.add('hidden-div');
+            carouselContainerList.push(container);
+            main.parentNode.insertBefore(container, main);
+            const assets = lunchAssets[0];
+            //await checkForPlayableAssets(assets); //just checks if at least one is active to take it in the loop so that it doesnt throw any error
+            console.log("check for playable assets exited");
+            const headingsDiv = document.createElement('div');
+            const menuHeading = document.createElement('h1');
+            headingsDiv.classList.add('headingsDiv');
+            container.appendChild(headingsDiv);
+            headingsDiv.appendChild(menuHeading);
+            menuHeading.textContent = lunchName;
+            const photoDiv = document.createElement('div');
+            photoDiv.classList.add('photoDiv');
+            container.appendChild(photoDiv);
+            const img = document.createElement('img');
+            img.src = lunchAssets[1];
+            img.classList.add('lunchImage');
+            photoDiv.append(img);
+
+            assets.forEach(asset => {
+                const itemEntry = document.createElement('div');
+                itemEntry.classList.add('itemEntry');
+                const heading = document.createElement('h2');
+                heading.classList.add('itemName');
+                const price = document.createElement('h2');
+                price.classList.add('price');
+                heading.textContent = asset.menuItem;
+                price.textContent = '@' + asset.price + '/-';
+                itemEntry.appendChild(heading);
+                headingsDiv.appendChild(itemEntry);
+            });
+        });
+
+        let shouldContinue = true;
+        while (shouldContinue) {
+
+            const container = carouselContainerList[containerId];
+            const headings = container.getElementsByClassName('itemEntry');
+
+
+            var numberOfVisibleItems = 0;
+            for (let i = 0; i < headings.length; i++) {
+                if(!headings[i].classList.contains('hidden-heading')) {
+                    numberOfVisibleItems++;
+                }
+            }
+            const maxHeight = 600 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
+            const maxFontSize = 40; // Define the maximum font size you want to apply
+
+            const suitableFontSize = maxHeight / numberOfVisibleItems;
+            const finalFontSize = Math.min(maxFontSize, suitableFontSize);
+
+            const h2Elements = document.querySelectorAll('h2');
+            for (let i = 0; i < h2Elements.length; i++) {
+                h2Elements[i].style.fontSize = finalFontSize + 'px';
+            }
+
+            const numContainer = carouselContainerList.length;
+
+            const prev = (containerId + numContainer - 1) % numContainer;
+            carouselContainerList[containerId].classList.add('carousel-container-show');
+            carouselContainerList[containerId].classList.remove('hidden-div');
+            carouselContainerList[prev].classList.remove('carousel-container-show');
+            carouselContainerList[prev].classList.add('hidden-div');
+            containerId = (containerId + 1) % numContainer;
+
+            await delay(5000);
+        }
+    }
+    playAds();
+</script>
+               <style>body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: url('https://main--inside-adobe-screens--addyken.hlx.live/content/screens/sodexo/media_126853152d7061368ae6f37c0f8b262f989c85153.png') center/cover no-repeat;
+}
+
+/* h1{
+    margin-left: 400px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    color: #9BBF46;
+} */
+.headingsDiv h1{
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: #9BBF46;
+    align-self: center;
+    font-size: 80px;
+}
+.headingsDiv h2{
+    margin-top: 10px;
+    /* margin-bottom: 10x; */
+    margin-left: 10%;
+}
+
+.carousel-container {
+    /* position: relative; */
+    height: 100%;
+    overflow-y: scroll;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+    position: absolute;
+    /* display: none; */
+    /* background-color: white; */
+}
+
+.carousel-container-show {
+    z-index: 3;
+    position: absolute;
+}
+
+#LUNCH-HOME-FAVOURITE{
+    height: 100%;
+    overflow-y: scroll;
+    width: 100%;
+    display: flex;
+}
+.headingsDiv{
+    width: 55%;
+}
+
+.photoDiv{
+    width: 45%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center;
+}
+
+img {
+    width: 100%;
+}
+/* .photoDiv img{
+    border: 10px solid black;;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    height: 40%;
+    width: 85%;
+    margin-top: 5%;
+} */
+
+/* img, video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 1s;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+} */
+
+.visible {
+    opacity: 1;
+}
+
+.hidden-heading  h2{
+    display: none;
+}
+
+.hidden-div  {
+    visibility: hidden;
+}
+
+.itemEntry{
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    margin-right: 5%;
+}
+
+.lunchImage{
+    /* margin-top: 25%; */
+    height: auto;
+    width: 70%;
+    /* margin-bottom: 25%; */
+    vertical-align: middle;
+}
+</style>
+             </head>
+             <body>
+             <main>
+             </main>
+             </body>
+           </html>

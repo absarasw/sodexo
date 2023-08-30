@@ -1,0 +1,55 @@
+{
+  "version": "3.0",
+  "timestamp": 1693424580000,
+  "entries": [
+    {
+      "path": "/content/screens/sodexo/lunch-menu-home-fav.html",
+      "timestamp": 1693395858000
+    },
+    {
+      "path": "/scripts/lib-franklin.js",
+      "timestamp": 1692531772000
+    },
+    {
+      "path": "/scripts/scripts.js",
+      "timestamp": 1692531772000
+    },
+    {
+      "path": "/styles/styles.css",
+      "timestamp": 1692531772000
+    },
+    {
+      "path": "/content/screens/sodexo/media_14f6dfd6c70c7883c48bfd0416a848692b2fe379c.jpeg",
+      "hash": "14f6dfd6c70c7883c48bfd0416a848692b2fe379c"
+    },
+    {
+      "path": "/scripts/delayed.js",
+      "timestamp": 1692531771000
+    },
+    {
+      "path": "/blocks/lunch/lunch.css",
+      "timestamp": 1693377934000
+    },
+    {
+      "path": "/blocks/lunch/lunch.js",
+      "timestamp": 1693377934000
+    },
+    {
+      "path": "/content/screens/assets/Lunch/lunch1.jpeg",
+      "timestamp": 1693424580000
+    },
+    {
+      "path": "/content/screens/assets/Lunch/lunch2.jpeg",
+      "timestamp": 1693424580000
+    }
+  ],
+  "contentDelivery": {
+    "providers": [
+      {
+        "name": "franklin",
+        "endpoint": "/"
+      }
+    ],
+    "defaultProvider": "franklin"
+  }
+}

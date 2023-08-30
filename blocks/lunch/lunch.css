@@ -27,15 +27,23 @@ body, html {
     margin-left: 10%;
 }
 
-#carousel-container {
+.carousel-container {
     /* position: relative; */
     height: 100%;
     overflow-y: scroll;
     width: 100%;
     display: flex;
+    z-index: 1;
+    position: absolute;
     /* display: none; */
     /* background-color: white; */
 }
+
+.carousel-container-show {
+    z-index: 3;
+    position: absolute;
+}
+
 #LUNCH-HOME-FAVOURITE{
     height: 100%;
     overflow-y: scroll;
@@ -87,6 +95,10 @@ img {
 
 .hidden-heading  h2{
     display: none;
+}
+
+.hidden-div  {
+    visibility: hidden;
 }
 
 .itemEntry{

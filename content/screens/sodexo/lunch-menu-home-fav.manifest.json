@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1693426760000,
+  "timestamp": 1693460018000,
   "entries": [
     {
       "path": "/content/screens/sodexo/lunch-menu-home-fav.html",
-      "timestamp": 1693395858000
+      "timestamp": 1693460018000
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -17,10 +17,6 @@
     {
       "path": "/styles/styles.css",
       "timestamp": 1692531772000
-    },
-    {
-      "path": "/content/screens/sodexo/media_14f6dfd6c70c7883c48bfd0416a848692b2fe379c.jpeg",
-      "hash": "14f6dfd6c70c7883c48bfd0416a848692b2fe379c"
     },
     {
       "path": "/scripts/delayed.js",

@@ -10,7 +10,7 @@
     "lint:js": "eslint .",
     "lint:css": "stylelint blocks/**/*.css styles/*.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "generate-offline-resources": "node scripts/generate-offline-resources.js helixManifest='/internal/screens/manifests' helixChannelsList='/internal/screens/channels'"
+    "generate-offline-resources": "node scripts/generate-offline-resources.js helixManifest='/internal/screens/manifests' helixChannelsList='/internal/screens/channels' customDomain='https://sodexo.aem-screens.net'"
   },
   "repository": {
     "type": "git",

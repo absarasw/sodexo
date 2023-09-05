@@ -2,14 +2,14 @@
   "channels": [
     {
       "manifestPath": "/content/screens/sodexo/lunch-menu-home-fav.manifest.json",
-      "lastModified": "2023-09-05T12:08:14.000Z",
+      "lastModified": "2023-09-05T12:19:34.000Z",
       "externalId": "/content/screens/sodexo/lunch-menu-home-fav",
       "title": "LUNCH-MENU",
       "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/lunch-menu-home-fav.html"
     },
     {
       "manifestPath": "/content/screens/sodexo/breakfast-menu.manifest.json",
-      "lastModified": "2023-09-05T12:11:57.903Z",
+      "lastModified": "2023-09-05T12:08:14.000Z",
       "externalId": "/content/screens/sodexo/breakfast-menu",
       "title": "BREAKFAST-MENU",
       "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/breakfast-menu.html"

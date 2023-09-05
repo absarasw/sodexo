@@ -114,7 +114,7 @@ export default async function decorate(block) {
       const img2 = document.createElement('img');
       photoDiv.appendChild(img1);
       photoDiv.appendChild(img2);
-      const listUrl = 'https://main--tagging-sodexo--addyken.hlx.live/content/screens/sodexo/sodexo-content/list-of-assets.json';
+      const listUrl = '/content/screens/sodexo/sodexo-content/list-of-assets.json';
       const assetLinkListObjects = JSON.parse(await fetchData(listUrl));
       const assetLinkLists = [];
       assetLinkListObjects.data.forEach(object => {

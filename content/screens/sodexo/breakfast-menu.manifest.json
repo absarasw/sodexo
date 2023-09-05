@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1693911699118,
+  "timestamp": 1693911700776,
   "entries": [
     {
-      "path": "/content/screens/sodexo/lunch-menu-home-fav.html",
-      "timestamp": 1693911699118
+      "path": "/content/screens/sodexo/breakfast-menu.html",
+      "timestamp": 1693911700776
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -23,20 +23,12 @@
       "timestamp": 1692531771000
     },
     {
-      "path": "/blocks/lunch/lunch.css",
-      "timestamp": 1693377934000
+      "path": "/blocks/breakfast/breakfast.css",
+      "timestamp": 1692531770000
     },
     {
-      "path": "/blocks/lunch/lunch.js",
-      "timestamp": 1693426760000
-    },
-    {
-      "path": "/content/screens/assets/Lunch/lunch1.jpeg",
-      "timestamp": 1693549300000
-    },
-    {
-      "path": "/content/screens/assets/Lunch/lunch2.jpeg",
-      "timestamp": 1693549297000
+      "path": "/blocks/breakfast/breakfast.js",
+      "timestamp": 1692531770000
     }
   ],
   "contentDelivery": {

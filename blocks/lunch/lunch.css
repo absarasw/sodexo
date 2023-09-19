@@ -44,6 +44,16 @@ body, html {
     position: absolute;
 }
 
+.message-container {
+    color: #9BBF46;
+    align-self: center;
+    font-size: 80px;
+    z-index : 1;
+    width: 100%;
+    height: 100%;
+}
+
+
 #LUNCH-HOME-FAVOURITE{
     height: 100%;
     overflow-y: scroll;

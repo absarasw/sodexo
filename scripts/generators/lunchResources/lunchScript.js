@@ -1,69 +1,86 @@
 export default async function scriptText(assetsList) {
     let containerId = 0;
     const carouselContainerList = [];
-    const parseTimeString = (timeString, isGMT) => {
-        const parts = timeString.split(':');
-        let hours = parseInt(parts[0], 10);
-        const minutes = parseInt(parts[1], 10);
-        const seconds = parseInt(parts[2].split(' ')[0], 10);
-        const isPM = (timeString.indexOf('PM') > -1);
-        if (isPM && hours < 12) {
-            hours += 12;
-        }
-        if (!isPM && hours === 12) {
-            hours -= 12;
-        }
-        const dateObj = new Date();
-        if (isGMT) {
-            dateObj.setUTCHours(hours);
-            dateObj.setUTCMinutes(minutes);
-            dateObj.setUTCSeconds(seconds);
-        } else {
-            dateObj.setHours(hours);
-            dateObj.setMinutes(minutes);
-            dateObj.setSeconds(seconds);
-        }
-        return dateObj;
-    };
-
-    const parseStartTimeString = (timeString, isGMT) => {
-        if (!timeString) {
-            return new Date();
-        }
-        return parseTimeString(timeString, isGMT);
-    };
-
-    const parseEndTimeString = (timeString, isGMT) => {
-        if (!timeString) {
-            const date = new Date();
-            date.setFullYear(date.getFullYear() + 10);
-            return date;
-        }
-        return parseTimeString(timeString, isGMT);
-    };
-
-    const checkForPlayableAssets = async (assets = []) => {
-        console.log("check for playable assets called");
-        if (assets.length === 0) {
-            return;
-        }
-        let isActive = false;
-        assets.forEach((asset) => {
-            const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
-            const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
-            const now = new Date();
-            if (now >= startTime && now <= endTime) {
-                isActive = true;
-            }
-        });
-    };
 
     function delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    async function playAds() { //this function runs on loop and never stops working because of the incremented index it's always supposed to loop over the assets
-        console.log("play ads is called");
+    const timeStringCheck = (timeString) => {
+        return new RegExp('^([01]?[0-9]|2[0-3]):[0-5][0-9]$').test(timeString);
+    }
+
+
+    const checkTime = (startTime, endTime) => {
+        const date = new Date();
+        const startDateTime = new Date();
+        if(timeStringCheck(startTime)) {
+            const parts = startTime.split(':');
+            startDateTime.setHours(parts[0]);
+            startDateTime.setMinutes(parts[1]);
+            startDateTime.setSeconds(0);
+        }
+
+        const endDateTime = new Date();
+
+        if(timeStringCheck(endTime)) {
+            const parts = endTime.split(':');
+            endDateTime.setHours(parts[0]);
+            endDateTime.setMinutes(parts[1]);
+            endDateTime.setSeconds(0);
+        } else {
+            endDateTime.setFullYear(date.getFullYear() + 10);
+        }
+
+        return date.getTime() > startDateTime.getTime() && date.getTime() < endDateTime.getTime();
+
+    }
+
+    function hideCarousels() {
+        carouselContainerList.forEach((carousel, i) => {
+            carousel.classList.remove('carousel-container-show');
+            carousel.classList.add('hidden-div');
+        });
+    }
+
+    function hideMessage() {
+        const oldContainer = document.getElementsByClassName('message-container')[0];
+        if(oldContainer) {
+            oldContainer.remove();
+        }
+    }
+
+    function displayMessage(message) {
+        const main = document.getElementsByTagName('main')[0];
+        const oldContainer = document.getElementsByClassName('message-container')[0];
+        if(oldContainer) {
+            oldContainer.remove();
+        }
+        hideCarousels();
+        const container = document.createElement('div');
+        main.parentNode.insertBefore(container, main);
+        container.classList.add('message-container');
+        const heading = document.createElement('h1');
+        container.appendChild(heading);
+        heading.textContent = message;
+    }
+
+    async function playMenu() {
+        console.log("play menu is called");
+        let notShowMenu = false;
+        if(!checkTime(startTime, endTime)) {
+            displayMessage("Coming Soon");
+            notShowMenu = true;
+        }
+
+        while(notShowMenu) {
+            await delay(5000);
+            if(checkTime(startTime, endTime)) {
+                notShowMenu = false;
+                hideMessage();
+            }
+        }
+
         assetsList.forEach((lunchAssets, lunchName) => {
 
             const main = document.getElementsByTagName('main')[0];
@@ -73,8 +90,6 @@ export default async function scriptText(assetsList) {
             carouselContainerList.push(container);
             main.parentNode.insertBefore(container, main);
             const assets = lunchAssets[0];
-            //await checkForPlayableAssets(assets); //just checks if at least one is active to take it in the loop so that it doesnt throw any error
-            console.log("check for playable assets exited");
             const headingsDiv = document.createElement('div');
             const menuHeading = document.createElement('h1');
             headingsDiv.classList.add('headingsDiv');
@@ -94,10 +109,7 @@ export default async function scriptText(assetsList) {
                 itemEntry.classList.add('itemEntry');
                 const heading = document.createElement('h2');
                 heading.classList.add('itemName');
-                const price = document.createElement('h2');
-                price.classList.add('price');
                 heading.textContent = asset.menuItem;
-                price.textContent = '@' + asset.price + '/-';
                 itemEntry.appendChild(heading);
                 headingsDiv.appendChild(itemEntry);
             });
@@ -137,7 +149,11 @@ export default async function scriptText(assetsList) {
             containerId = (containerId + 1) % numContainer;
 
             await delay(5000);
+            if(!checkTime(startTime, endTime)) {
+                shouldContinue = false;
+            }
         }
+        displayMessage("Lunch Over");
     }
-    playAds();
+    playMenu();
 };

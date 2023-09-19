@@ -6,6 +6,7 @@ import { outputFile } from 'fs-extra';
 import FetchUtils from '@aem-screens/screens-offlineresources-generator/src/utils/fetchUtils.js';
 
 
+
 export default class HtmlGenerator {
 
     static getFranklinMarkup = async (host, path) => {
@@ -41,7 +42,6 @@ export default class HtmlGenerator {
         } else {
             throw new Error(`Invalid sheet type: ${sheetDataResponse[':type']}`);
         }
-        //now this function just returns the list of all the assets.
     }
 
     static fetchData = async (url) => {
@@ -63,8 +63,10 @@ export default class HtmlGenerator {
     static generateHTML = async (host, path) => {
         const additionalAssets = [];
         const franklinString = await HtmlGenerator.getFranklinMarkup(host, path);
-        const sheetDetailsList = HtmlGenerator.extractSheetData(franklinString) || [];
+        const $ = load(franklinString);
+        const sheetDetailsList = HtmlGenerator.extractSheetData($) || [];
 
+        console.log("Inside generateHTML");
 
         const assetsList = new Map();
         let errorFlag = false;
@@ -88,14 +90,8 @@ export default class HtmlGenerator {
                 for (let row = 0; row < sheetData.length; row++) { //iterating over each asset
                     try {
                         const assetDetails = sheetData[row]; //asset object
-                        HtmlGenerator.validateTimeFormat(assetDetails['Start Time']);
-                        HtmlGenerator.validateTimeFormat(assetDetails['End Time']);
                         assets.push({
-                            'menuItem': assetDetails['Menu Item'],
-                            'price': assetDetails['Price'],
-                            'startTime': assetDetails['Start Time'],
-                            'endTime': assetDetails['End Time'],
-                            'isGMT': HtmlGenerator.isGMT(assetDetails['Timezone'])
+                            'menuItem': assetDetails['Menu Item']
                         });
                     } catch (err) {
                         console.warn(`Error while processing asset ${JSON.stringify(sheetData[row])}`, err);
@@ -114,7 +110,11 @@ export default class HtmlGenerator {
             return;
         }
 
-        const generatedHtml = HtmlGenerator.createLunchCarousel(assetsList);
+        const startTime = $('meta[name="start-time"]').attr('content');
+        const endTime = $('meta[name="end-time"]').attr('content');
+
+
+        const generatedHtml = HtmlGenerator.createLunchCarousel(assetsList, startTime, endTime);
 
         outputFile(`${path}.html`, generatedHtml, (err) => {
             if (err) {
@@ -137,18 +137,19 @@ export default class HtmlGenerator {
         return cssText;
     };
 
-    static createScript = (assetsList) => {
+    static createScript = (assetsList, startTime, endTime) => {
         let scriptString = scriptText.toString();
         scriptString = scriptString.substring(scriptString.indexOf('{') + 1);
         scriptString = scriptString.slice(0, -1);
         console.log('assetsList = ' + assetsList);
         const assetsJson = JSON.stringify(Array.from(assetsList.entries()));
-        scriptString = `const assetsList = new Map(JSON.parse('${assetsJson}')) ;${scriptString}`;
+        scriptString = `const assetsList = new Map(JSON.parse('${assetsJson}')) ; const startTime = \'${startTime}\'; const endTime = \'${endTime}\'; ${scriptString}`;
+        //console.log("Create Script = " + scriptString);
         return scriptString;
     };
 
-    static createLunchCarousel = (assetsList = []) => {
-        const scriptString = HtmlGenerator.createScript(assetsList);
+    static createLunchCarousel = (assetsList = [], startTime, endTime) => {
+        const scriptString = HtmlGenerator.createScript(assetsList, startTime, endTime);
         const cssString = HtmlGenerator.createCSS();
         return `<html lang="en-US">
              <head>
@@ -196,9 +197,9 @@ export default class HtmlGenerator {
         return dayOfWeek;
     };
 
-    static extractSheetData = (channelHtml) => {
+    static extractSheetData = ($) => {
         var sheetDetails = [];
-        const $ = load(channelHtml);
+
         const container = $('.locations');
         if (!container || !container.children()) {
             console.warn('No carousel data found while extracting sheet data.');

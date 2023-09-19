@@ -1,7 +1,11 @@
+import {getMetadata} from "../../scripts/lib-franklin.js";
+
 export default async function decorate(block) {
 
   let containerId = 0;
   const carouselContainerList = [];
+  const startTime = getMetadata('start-time');
+  const endTime = getMetadata('end-time');
   const scriptText = async (assetsList) => {
     console.log('script text is called');
     console.log(assetsList);
@@ -46,28 +50,86 @@ export default async function decorate(block) {
       return parseTimeString(timeString, isGMT);
     };
 
-    const checkForPlayableAssets = async (assets = []) => {
-      console.log("check for playable assets called");
-      if (assets.length === 0) {
-        return;
-      }
-      let isActive = false;
-      assets.forEach((asset) => {
-        const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
-        const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
-        const now = new Date();
-        if (now >= startTime && now <= endTime) {
-          isActive = true;
-        }
-      });
-    };
 
     function delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    async function playAds() { //this function runs on loop and never stops working because of the incremented index it's always supposed to loop over the assets
-      console.log("play ads is called");
+    const timeStringCheck = (timeString) => {
+      return new RegExp('^([01]?[0-9]|2[0-3]):[0-5][0-9]$').test(timeString);
+    }
+
+
+    const checkTime = (startTime, endTime) => {
+      const date = new Date();
+      const startDateTime = new Date();
+      if(timeStringCheck(startTime)) {
+        const parts = startTime.split(':');
+        startDateTime.setHours(parts[0]);
+        startDateTime.setMinutes(parts[1]);
+        startDateTime.setSeconds(0);
+      }
+
+      const endDateTime = new Date();
+
+      if(timeStringCheck(endTime)) {
+        const parts = endTime.split(':');
+        endDateTime.setHours(parts[0]);
+        endDateTime.setMinutes(parts[1]);
+        endDateTime.setSeconds(0);
+      } else {
+        endDateTime.setFullYear(date.getFullYear() + 10);
+      }
+
+      return date.getTime() > startDateTime.getTime() && date.getTime() < endDateTime.getTime();
+
+    }
+
+    function hideCarousels() {
+      carouselContainerList.forEach((carousel, i) => {
+        carousel.classList.remove('carousel-container-show');
+        carousel.classList.add('hidden-div');
+      });
+    }
+
+    function hideMessage() {
+      const oldContainer = document.getElementsByClassName('message-container')[0];
+      if(oldContainer) {
+        oldContainer.remove();
+      }
+    }
+
+    function displayMessage(message) {
+      const main = document.getElementsByTagName('main')[0];
+      const oldContainer = document.getElementsByClassName('message-container')[0];
+      if(oldContainer) {
+        oldContainer.remove();
+      }
+      hideCarousels();
+      const container = document.createElement('div');
+      main.parentNode.insertBefore(container, main);
+      container.classList.add('message-container');
+      const heading = document.createElement('h1');
+      container.appendChild(heading);
+      heading.textContent = message;
+    }
+
+    async function playMenu() {
+      console.log("play menu is called");
+      let notShowMenu = false;
+      if(!checkTime(startTime, endTime)) {
+        displayMessage("Coming Soon");
+        notShowMenu = true;
+      }
+
+      while(notShowMenu) {
+        await delay(5000);
+        if(checkTime(startTime, endTime)) {
+          notShowMenu = false;
+          hideMessage();
+        }
+      }
+
       assetsList.forEach((lunchAssets, lunchName) => {
 
         const main = document.getElementsByTagName('main')[0];
@@ -77,8 +139,6 @@ export default async function decorate(block) {
         carouselContainerList.push(container);
         main.parentNode.insertBefore(container, main);
         const assets = lunchAssets[0];
-        //await checkForPlayableAssets(assets); //just checks if at least one is active to take it in the loop so that it doesnt throw any error
-        console.log("check for playable assets exited");
         const headingsDiv = document.createElement('div');
         const menuHeading = document.createElement('h1');
         headingsDiv.classList.add('headingsDiv');
@@ -100,12 +160,8 @@ export default async function decorate(block) {
           itemEntry.classList.add('itemEntry');
           const heading = document.createElement('h2');
           heading.classList.add('itemName');
-          const price = document.createElement('h2');
-          price.classList.add('price');
           heading.textContent = asset.menuItem;
-          price.textContent = '@' + asset.price + '/-';
           itemEntry.appendChild(heading);
-          //itemEntry.appendChild(price);
           headingsDiv.appendChild(itemEntry);
         });
       });
@@ -115,27 +171,6 @@ export default async function decorate(block) {
 
         const container = carouselContainerList[containerId];
         const headings = container.getElementsByClassName('itemEntry');
-
-        /*for (let index = 0; index < assets.length; index++) {
-          const asset = assets[index];
-          const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
-          const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
-          const now = new Date();
-
-          if (now >= startTime && now <= endTime) {
-            for (let i = 0; i < headings.length; i++) {
-              if (headings[i].getElementsByTagName('h2')[0].textContent == asset.menuItem) {
-                headings[i].classList.remove('hidden-heading');
-              }
-            }
-          } else {
-            for (let i = 0; i < headings.length; i++) {
-              if (headings[i].getElementsByTagName('h2')[0].textContent == asset.menuItem) {
-                headings[i].classList.add('hidden-heading');
-              }
-            }
-          }
-        }*/
 
         var numberOfVisibleItems = 0;
         for (let i = 0; i < headings.length; i++) {
@@ -164,9 +199,14 @@ export default async function decorate(block) {
         containerId = (containerId + 1) % numContainer;
 
         await delay(5000);
+        if(!checkTime(startTime, endTime)) {
+          shouldContinue = false;
+        }
       }
+      displayMessage("Lunch Over");
     }
-    playAds();
+
+    playMenu();
   };
 
   const runCarousel = async (assetsList = []) => {
@@ -315,14 +355,14 @@ export default async function decorate(block) {
         for (let row = 0; row < sheetData.length; row++) { //iterating over each asset
           try {
             const assetDetails = sheetData[row]; //asset object
-            validateTimeFormat(assetDetails['Start Time']);
-            validateTimeFormat(assetDetails['End Time']);
+            //validateTimeFormat(assetDetails['Start Time']);
+            //validateTimeFormat(assetDetails['End Time']);
             assets.push({
-              'menuItem': assetDetails['Menu Item'],
-              'price': assetDetails['Price'],
-              'startTime': assetDetails['Start Time'],
-              'endTime': assetDetails['End Time'],
-              'isGMT': isGMT(assetDetails['Timezone'])
+              'menuItem': assetDetails['Menu Item']//,
+              //'price': assetDetails['Price'],
+              //'startTime': assetDetails['Start Time'],
+              //'endTime': assetDetails['End Time'],
+              //'isGMT': isGMT(assetDetails['Timezone'])
             });
           } catch (err) {
             console.warn(`Error while processing asset ${JSON.stringify(sheetData[row])}`, err);

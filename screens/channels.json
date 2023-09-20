@@ -13,6 +13,13 @@
       "externalId": "/content/screens/sodexo/breakfast-menu",
       "title": "BREAKFAST-MENU",
       "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/breakfast-menu.html"
+    },
+    {
+      "manifestPath": "/content/screens/sodexo/default-sodexo-channel.manifest.json",
+      "lastModified": "2023-09-20T07:11:04.044Z",
+      "externalId": "/content/screens/sodexo/default-sodexo-channel",
+      "title": "Default",
+      "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/default-sodexo-channel.html"
     }
   ],
   "metadata": {

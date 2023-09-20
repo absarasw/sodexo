@@ -91,7 +91,8 @@ export default class HtmlGenerator {
                     try {
                         const assetDetails = sheetData[row]; //asset object
                         assets.push({
-                            'menuItem': assetDetails['Menu Item']
+                            'menuItem': assetDetails['Menu Item'],
+                            'calories': assetDetails['Calories']
                         });
                     } catch (err) {
                         console.warn(`Error while processing asset ${JSON.stringify(sheetData[row])}`, err);

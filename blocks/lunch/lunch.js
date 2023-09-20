@@ -160,7 +160,7 @@ export default async function decorate(block) {
           itemEntry.classList.add('itemEntry');
           const heading = document.createElement('h2');
           heading.classList.add('itemName');
-          heading.textContent = asset.menuItem;
+          heading.textContent = asset.menuItem + ' (' + asset.calories + ')';
           itemEntry.appendChild(heading);
           headingsDiv.appendChild(itemEntry);
         });
@@ -355,14 +355,10 @@ export default async function decorate(block) {
         for (let row = 0; row < sheetData.length; row++) { //iterating over each asset
           try {
             const assetDetails = sheetData[row]; //asset object
-            //validateTimeFormat(assetDetails['Start Time']);
-            //validateTimeFormat(assetDetails['End Time']);
+
             assets.push({
-              'menuItem': assetDetails['Menu Item']//,
-              //'price': assetDetails['Price'],
-              //'startTime': assetDetails['Start Time'],
-              //'endTime': assetDetails['End Time'],
-              //'isGMT': isGMT(assetDetails['Timezone'])
+              'menuItem': assetDetails['Menu Item'],
+              'calories': assetDetails['Calories']
             });
           } catch (err) {
             console.warn(`Error while processing asset ${JSON.stringify(sheetData[row])}`, err);

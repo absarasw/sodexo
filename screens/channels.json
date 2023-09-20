@@ -16,9 +16,9 @@
     },
     {
       "manifestPath": "/content/screens/sodexo/default-sodexo-channel.manifest.json",
-      "lastModified": "2023-09-20T07:11:04.044Z",
+      "lastModified": "2023-09-20T07:14:46.111Z",
       "externalId": "/content/screens/sodexo/default-sodexo-channel",
-      "title": "Default",
+      "title": "Default Sodexo",
       "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/default-sodexo-channel.html"
     }
   ],

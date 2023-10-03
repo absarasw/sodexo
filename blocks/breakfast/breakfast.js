@@ -75,10 +75,8 @@ export default async function decorate(block) {
       photoDiv.appendChild(img2);
       const listUrl = '/content/screens/sodexo/sodexo-content/list-of-assets.json';
       const assetLinkListObjects = JSON.parse(await fetchData(listUrl));
-      const assetLinkLists = [];
-      assetLinkListObjects.data.forEach(object => {
-        assetLinkLists.push(object.ItemLink);
-      });
+      const assetLinkLists = assetLinkListObjects.data;
+
       console.log(assetLinkLists);
       assets.forEach(asset => {
         const itemEntry = document.createElement('div');
@@ -154,25 +152,25 @@ export default async function decorate(block) {
         for (let i = 0; i < headings.length; i++) {
           if(!headings[i].classList.contains('hidden-heading')){
             const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
-            assetLinkLists.forEach(link => {
-              if(link.includes(item)){
+            assetLinkLists.forEach(object => {
+              if(object.Asset.toLowerCase() === item.toLowerCase()){
                 if (img1Flag == 0) {
                   console.log(item);
                   const image = new Image();
                   image.onload = () => {
                     // Once the image is loaded, update the img tag's src attribute
-                    img1.src = link;
+                    img1.src = object.ItemLink;
                   };
-                  image.src = link;
+                  image.src = object.ItemLink;
                   img1Flag = 1;
                 }else{
                   console.log(item);
                   const image = new Image();
                   image.onload = () => {
                     // Once the image is loaded, update the img tag's src attribute
-                    img2.src = link;
+                    img2.src = object.ItemLink;
                   };
-                  image.src = link;
+                  image.src = object.ItemLink;
                 }
               }
             });

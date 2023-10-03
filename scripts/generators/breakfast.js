@@ -95,7 +95,7 @@ export default class HtmlGenerator {
         assetLinkListObjects.data.forEach(object => {
             staticAssetLinkLists.push(object.ItemLink);
         });
-        const generatedHtml = HtmlGenerator.createLunchCarousel(assets, sheetDetails.name, staticAssetLinkLists);
+        const generatedHtml = HtmlGenerator.createLunchCarousel(assets, sheetDetails.name, assetLinkListObjects.data);
 
         outputFile(`${path}.html`, generatedHtml, (err) => {
             if (err) {

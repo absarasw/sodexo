@@ -77,7 +77,6 @@ export default async function scriptText(assets, menuHeadingText, assetLinkLists
         const img2 = document.createElement('img');
         photoDiv.appendChild(img1);
         photoDiv.appendChild(img2);
-        console.log(assetLinkLists);
         assets.forEach(asset => {
             const itemEntry = document.createElement('div');
             itemEntry.classList.add('itemEntry');
@@ -152,25 +151,25 @@ export default async function scriptText(assets, menuHeadingText, assetLinkLists
             for (let i = 0; i < headings.length; i++) {
                 if (!headings[i].classList.contains('hidden-heading')) {
                     const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
-                    assetLinkLists.forEach(link => {
-                        if (link.includes(item)) {
+                    assetLinkLists.forEach(object => {
+                        if (object.Asset.toLowerCase() === item.toLowerCase()) {
                             if (img1Flag == 0) {
                                 console.log(item);
                                 const image = new Image();
                                 image.onload = () => {
                                     // Once the image is loaded, update the img tag's src attribute
-                                    img1.src = link;
+                                    img1.src = object.ItemLink;
                                 };
-                                image.src = link;
+                                image.src = object.ItemLink;
                                 img1Flag = 1;
                             } else {
                                 console.log(item);
                                 const image = new Image();
                                 image.onload = () => {
                                     // Once the image is loaded, update the img tag's src attribute
-                                    img2.src = link;
+                                    img2.src = object.ItemLink;
                                 };
-                                image.src = link;
+                                image.src = object.ItemLink;
                             }
                         }
                     });

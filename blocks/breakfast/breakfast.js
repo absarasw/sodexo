@@ -2,46 +2,7 @@ export default async function decorate(block) {
   const scriptText = async (assets) => {
     console.log('script text is called');
     console.log(assets);
-    const parseTimeString = (timeString, isGMT) => {
-      const parts = timeString.split(':');
-      let hours = parseInt(parts[0], 10);
-      const minutes = parseInt(parts[1], 10);
-      const seconds = parseInt(parts[2].split(' ')[0], 10);
-      const isPM = (timeString.indexOf('PM') > -1);
-      if (isPM && hours < 12) {
-        hours += 12;
-      }
-      if (!isPM && hours === 12) {
-        hours -= 12;
-      }
-      const dateObj = new Date();
-      if (isGMT) {
-        dateObj.setUTCHours(hours);
-        dateObj.setUTCMinutes(minutes);
-        dateObj.setUTCSeconds(seconds);
-      } else {
-        dateObj.setHours(hours);
-        dateObj.setMinutes(minutes);
-        dateObj.setSeconds(seconds);
-      }
-      return dateObj;
-    };
 
-    const parseStartTimeString = (timeString, isGMT) => {
-      if (!timeString) {
-        return new Date();
-      }
-      return parseTimeString(timeString, isGMT);
-    };
-
-    const parseEndTimeString = (timeString, isGMT) => {
-      if (!timeString) {
-        const date = new Date();
-        date.setFullYear(date.getFullYear() + 10);
-        return date;
-      }
-      return parseTimeString(timeString, isGMT);
-    };
 
     const checkForPlayableAssets = async (assets = []) => {
       console.log("check for playable assets called");
@@ -50,8 +11,6 @@ export default async function decorate(block) {
       }
       let isActive = false;
       assets.forEach((asset) => {
-        const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
-        const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
         const now = new Date();
         const dayOfWeekNumber = now.getDay();
         let dayOfWeek;
@@ -81,7 +40,7 @@ export default async function decorate(block) {
             break;
         }
         // console.log(dayOfWeek);
-        if (asset.day == dayOfWeek && now >= startTime && now <= endTime) {
+        if (asset.day == dayOfWeek) {
           isActive = true;
         }
       });
@@ -145,8 +104,6 @@ export default async function decorate(block) {
         }
         for (let index = 0; index < assets.length; index++) {
           const asset = assets[index];
-          const startTime = parseStartTimeString(asset.startTime, asset.isGMT);
-          const endTime = parseEndTimeString(asset.endTime, asset.isGMT);
           const now = new Date();
           const dayOfWeekNumber = now.getDay();
           let dayOfWeek;
@@ -176,7 +133,7 @@ export default async function decorate(block) {
               break;
           }
 
-          if (asset.day == dayOfWeek && now >= startTime && now <= endTime) {
+          if (asset.day == dayOfWeek) {
             // console.log("condition true");
             for (let i = 0; i < headings.length; i++) {
               if (headings[i].getElementsByTagName('h2')[0].textContent == asset.menuItem && headings[i].classList.contains(asset.day)) {
@@ -341,16 +298,11 @@ export default async function decorate(block) {
         const sheetData = processSheetDataResponse(sheetDataResponse);
         for (let row = 0; row < sheetData.length; row++) { //iterating over each asset
           try {
-            const assetDetails = sheetData[row]; //asset object 
-            validateTimeFormat(assetDetails['Start Time']);
-            validateTimeFormat(assetDetails['End Time']);
+            const assetDetails = sheetData[row]; //asset object
             assets.push({
               'menuItem': assetDetails['Menu Item'],
               'price': assetDetails['Price'],
-              'startTime': assetDetails['Start Time'],
-              'endTime': assetDetails['End Time'],
-              'day': assetDetails['day'],
-              'isGMT': isGMT(assetDetails['Timezone'])
+              'day': assetDetails['day']
             });
           } catch (err) {
             console.warn(`Error while processing asset ${JSON.stringify(sheetData[row])}`, err);

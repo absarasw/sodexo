@@ -14,17 +14,6 @@ export default class HtmlGenerator {
         return await resp.text();
     }
 
-
-    static validateTimeFormat = (time) => {
-        if (!time) {
-            return;
-        }
-        const timeFormatRegex = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]:[0-5][0-9]\\s(AM|PM)$');
-        if (!timeFormatRegex.test(time)) {
-            throw new Error(`Invalid time format: ${time}`);
-        }
-    }
-
     static isGMT = (timezone) => {
         return timezone && timezone.toLowerCase() === 'gmt';
     }
@@ -124,7 +113,7 @@ export default class HtmlGenerator {
         });
         console.log(`HTML saved at ${path}.html`);
 
-
+        additionalAssets.push("/content/screens/sodexo/sodexo-content/background.png"); //adding background image for manifest
         return additionalAssets;
     }
     static createCSS = () => {

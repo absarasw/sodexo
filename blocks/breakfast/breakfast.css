@@ -4,7 +4,7 @@ body, html {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background: url('https://main--inside-adobe-screens--addyken.hlx.live/content/screens/sodexo/media_126853152d7061368ae6f37c0f8b262f989c85153.png') center/cover no-repeat;
+    background: url('/content/screens/sodexo/sodexo-content/background.png') center/cover no-repeat;
 }
 
 /* h1{

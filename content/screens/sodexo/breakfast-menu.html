@@ -1,32 +1,297 @@
-<!DOCTYPE html><html><head>
-    <title>BREAKFAST-MENU</title>
-    <link rel="canonical" href="https://sodexo.aem-screens.net/content/screens/sodexo/breakfast-menu">
-    <meta property="og:title" content="BREAKFAST-MENU">
-    <meta property="og:url" content="https://sodexo.aem-screens.net/content/screens/sodexo/breakfast-menu">
-    <meta property="og:image" content="https://sodexo.aem-screens.net/default-meta-image.png?width=1200&amp;format=pjpg&amp;optimize=medium">
-    <meta property="og:image:secure_url" content="https://sodexo.aem-screens.net/default-meta-image.png?width=1200&amp;format=pjpg&amp;optimize=medium">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="BREAKFAST-MENU">
-    <meta name="twitter:image" content="https://sodexo.aem-screens.net/default-meta-image.png?width=1200&amp;format=pjpg&amp;optimize=medium">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="/scripts/lib-franklin.js" type="module"></script>
-    <script src="/scripts/scripts.js" type="module"></script>
-    <link rel="stylesheet" href="/styles/styles.css">
-    <link rel="icon" href="data:,">
-  </head>
-  <body>
-    <header></header>
-    <main>
-      <div>
-        <div class="breakfast locations">
-          <div>
-            <div>BREAKFAST MENU</div>
-            <div><a href="/content/screens/schedules/sodexo-schedule.json"><u>https://main--sodexo--absarasw.hlx.live/content/screens/schedules/sodexo-schedule.json</u></a></div>
-          </div>
-        </div>
-      </div>
-    </main>
-    <footer></footer>
-  
+<html lang="en-US">
+             <head>
+               <title></title>
+               <script type="module">const menuHeadingText = "BREAKFAST MENU"; const assetLinkLists = JSON.parse('["/content/screens/sodexo/sodexo-content/pizza.png","/content/screens/sodexo/sodexo-content/upma.png","/content/screens/sodexo/sodexo-content/paneer-parantha.png","/content/screens/sodexo/sodexo-content/peanut-poha.png","/content/screens/sodexo/sodexo-content/uttapam.jpeg"]'); const assets = JSON.parse('[{"menuItem":"UPMA","price":"20","day":"Wednesday"},{"menuItem":"UTTAPAM","price":"40","day":"Wednesday"},{"menuItem":"IDLI SAMBAAR","price":"30","day":"Wednesday"},{"menuItem":"BOILED EGG","price":"18","day":"Wednesday"},{"menuItem":"TOFU RICE","price":"50","day":"Wednesday"},{"menuItem":"Maggi","price":"30","day":"Wednesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Monday"},{"menuItem":"PANEER PARANTHA","price":"15","day":"Monday"},{"menuItem":"BREAD OMELETTE","price":"18","day":"Monday"},{"menuItem":"BOILED EGG","price":"08","day":"Monday"},{"menuItem":"HALF FRY","price":"17","day":"Monday"},{"menuItem":"FULL FRY","price":"17","day":"Monday"},{"menuItem":"UPMA","day":"Saturday"},{"menuItem":"UTTAPAM","day":"Saturday"},{"menuItem":"IDLI SAMBAAR","day":"Saturday"},{"menuItem":"BOILED EGG","day":"Saturday"},{"menuItem":"TOFU RICE","day":"Saturday"},{"menuItem":"PIZZA","price":"80","day":"Tuesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Tuesday"},{"menuItem":"BOILED EGGS","price":"20","day":"Tuesday"},{"menuItem":"OMELETTE","price":"30","day":"Tuesday"},{"menuItem":"UPMA","day":"Friday"},{"menuItem":"UTTAPAM","day":"Friday"},{"menuItem":"IDLI SAMBAAR","day":"Friday"},{"menuItem":"BOILED EGG","day":"Friday"},{"menuItem":"TOFU RICE","day":"Friday"},{"menuItem":"PEANUT POHA","price":"29","day":"Thursday"},{"menuItem":"PANEER PARANTHA","price":"15","day":"Thursday"},{"menuItem":"BREAD OMELETTE","price":"18","day":"Thursday"},{"menuItem":"BOILED EGG","price":"08","day":"Thursday"},{"menuItem":"HALF FRY","price":"17","day":"Thursday"},{"menuItem":"FULL FRY","price":"17","day":"Thursday"},{"menuItem":"PANEER PARANTHA","day":"Sunday"},{"menuItem":"PEANUT POHA","day":"Sunday"},{"menuItem":"BREAD OMELETTE","day":"Sunday"},{"menuItem":"BOILED EGG","day":"Sunday"}]');  
+    console.log('script text is called');
+    console.log(assets);
 
-</body></html>
+
+    const checkForPlayableAssets = async (assets = []) => {
+        console.log("check for playable assets called");
+        if (assets.length === 0) {
+            return;
+        }
+        let isActive = false;
+        assets.forEach((asset) => {
+            const now = new Date();
+            const dayOfWeekNumber = now.getDay();
+            let dayOfWeek;
+            switch (dayOfWeekNumber) {
+                case 0:
+                    dayOfWeek = 'Sunday';
+                    break;
+                case 1:
+                    dayOfWeek = 'Monday';
+                    break;
+                case 2:
+                    dayOfWeek = 'Tuesday';
+                    break;
+                case 3:
+                    dayOfWeek = 'Wednesday';
+                    break;
+                case 4:
+                    dayOfWeek = 'Thursday';
+                    break;
+                case 5:
+                    dayOfWeek = 'Friday';
+                    break;
+                case 6:
+                    dayOfWeek = 'Saturday';
+                    break;
+                default:
+                    break;
+            }
+            // console.log(dayOfWeek);
+            if (asset.day == dayOfWeek) {
+                isActive = true;
+            }
+        });
+        if (!isActive) {
+            await new Promise(r => setTimeout(r, 5000));
+            await checkForPlayableAssets(assets);
+        }
+    };
+
+    function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    const parseItem = (ItemString) => {
+        const lowered = ItemString.toLowerCase();
+        const hyphenatedString = lowered.replace(/\s+/g, '-');
+        return hyphenatedString;
+    }
+
+    async function playAds() { //this function runs on loop and never stops working bcoz of the incrementad index it's always supposed to loop over the assets
+        console.log("play ads is called");
+        const container = document.getElementById('carousel-container');
+        await checkForPlayableAssets(assets); //just checks if at least one is active to take it in the loop so that it doesnt throw any error
+        console.log("check for playable assets exited");
+        const headingsDiv = document.createElement('div');
+        const menuHeading = document.createElement('h1');
+        headingsDiv.classList.add('headingsDiv');
+        container.appendChild(headingsDiv);
+        headingsDiv.appendChild(menuHeading);
+        menuHeading.textContent = menuHeadingText;
+        const photoDiv = document.createElement('div');
+        photoDiv.classList.add('photoDiv');
+        container.appendChild(photoDiv);
+        const img1 = document.createElement('img');
+        const img2 = document.createElement('img');
+        photoDiv.appendChild(img1);
+        photoDiv.appendChild(img2);
+        console.log(assetLinkLists);
+        assets.forEach(asset => {
+            const itemEntry = document.createElement('div');
+            itemEntry.classList.add('itemEntry');
+            const heading = document.createElement('h2');
+            heading.classList.add('itemName');
+            const price = document.createElement('h2');
+            price.classList.add('price');
+            heading.textContent = asset.menuItem;
+            price.textContent = '@' + asset.price + '/-';
+            itemEntry.appendChild(heading);
+            itemEntry.appendChild(price);
+            itemEntry.classList.add('hidden-heading');
+            const dayString = asset.day;
+            itemEntry.classList.add(dayString);
+            headingsDiv.appendChild(itemEntry);
+        });
+        const headings = document.getElementsByClassName('itemEntry');
+        let shouldContinue = true;
+        while (shouldContinue) {
+            if (assets.length == 0) {
+                break;
+            }
+            for (let index = 0; index < assets.length; index++) {
+                const asset = assets[index];
+                const now = new Date();
+                const dayOfWeekNumber = now.getDay();
+                let dayOfWeek;
+                switch (dayOfWeekNumber) {
+                    case 0:
+                        dayOfWeek = 'Sunday';
+                        break;
+                    case 1:
+                        dayOfWeek = 'Monday';
+                        break;
+                    case 2:
+                        dayOfWeek = 'Tuesday';
+                        break;
+                    case 3:
+                        dayOfWeek = 'Wednesday';
+                        break;
+                    case 4:
+                        dayOfWeek = 'Thursday';
+                        break;
+                    case 5:
+                        dayOfWeek = 'Friday';
+                        break;
+                    case 6:
+                        dayOfWeek = 'Saturday';
+                        break;
+                    default:
+                        break;
+                }
+
+                if (asset.day == dayOfWeek) {
+                    // console.log("condition true");
+                    for (let i = 0; i < headings.length; i++) {
+                        if (headings[i].getElementsByTagName('h2')[0].textContent == asset.menuItem && headings[i].classList.contains(asset.day)) {
+                            headings[i].classList.remove('hidden-heading');
+                        }
+                    }
+                } else {
+                    // console.log("condition false");
+                    for (let i = 0; i < headings.length; i++) {
+                        if (headings[i].getElementsByTagName('h2')[0].textContent == asset.menuItem && headings[i].classList.contains(asset.day)) {
+                            headings[i].classList.add('hidden-heading');
+                        }
+                    }
+                }
+            }
+            var img1Flag = 0;
+            var numberOfVisibleItems = 0;
+            for (let i = 0; i < headings.length; i++) {
+                if (!headings[i].classList.contains('hidden-heading')) {
+                    const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
+                    assetLinkLists.forEach(link => {
+                        if (link.includes(item)) {
+                            if (img1Flag == 0) {
+                                console.log(item);
+                                const image = new Image();
+                                image.onload = () => {
+                                    // Once the image is loaded, update the img tag's src attribute
+                                    img1.src = link;
+                                };
+                                image.src = link;
+                                img1Flag = 1;
+                            } else {
+                                console.log(item);
+                                const image = new Image();
+                                image.onload = () => {
+                                    // Once the image is loaded, update the img tag's src attribute
+                                    img2.src = link;
+                                };
+                                image.src = link;
+                            }
+                        }
+                    });
+                    console.log(img1.src);
+                    console.log(img2.src);
+                    numberOfVisibleItems++;
+                }
+            }
+            const maxHeight = 600 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
+            const maxFontSize = 40; // Define the maximum font size you want to apply
+
+
+            const suitableFontSize = maxHeight / numberOfVisibleItems;
+            const finalFontSize = Math.min(maxFontSize, suitableFontSize);
+
+            const h2Elements = document.querySelectorAll('h2');
+            for (let i = 0; i < h2Elements.length; i++) {
+                h2Elements[i].style.fontSize = finalFontSize + 'px';
+            }
+
+            await delay(3000);
+        }
+    }
+
+    playAds();
+</script>
+               <style>body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: url('/content/screens/sodexo/sodexo-content/background.png') center/cover no-repeat;
+}
+
+/* h1{
+    margin-left: 400px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    color: #9BBF46;
+} */
+.headingsDiv h1{
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: #9BBF46;
+    align-self: center;
+    font-size: 80px;
+}
+.headingsDiv h2{
+    margin-top: 10px;
+    /* margin-bottom: 10x; */
+    margin-left: 10%;
+}
+
+#carousel-container {
+    /* position: relative; */
+    height: 100%;
+    overflow-y: scroll;
+    width: 100%;
+    display: flex;
+    /* background-color: white; */
+}
+
+.headingsDiv{
+    width: 55%;
+}
+
+.photoDiv{
+    width: 45%;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+}
+.photoDiv img{
+    border: 10px solid black;;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    height: 40%;
+    width: 85%;
+    margin-top: 5%;
+}
+
+/* img, video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 1s;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+} */
+
+.visible {
+    opacity: 1;
+}
+
+.hidden-heading  h2{
+    display: none;
+}
+
+.itemEntry{
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    margin-right: 5%;
+}
+</style>
+             </head>
+             <body>
+               <div id="carousel-container"></div>
+             </body>
+           </html>

@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1693916497000,
+  "timestamp": 1696363855707,
   "entries": [
     {
       "path": "/content/screens/sodexo/breakfast-menu.html",
-      "timestamp": 1693916497000
+      "timestamp": 1696363855707
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -24,11 +24,35 @@
     },
     {
       "path": "/blocks/breakfast/breakfast.css",
-      "timestamp": 1693916480000
+      "timestamp": 1696362973000
     },
     {
       "path": "/blocks/breakfast/breakfast.js",
-      "timestamp": 1693916480000
+      "timestamp": 1696362973000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/pizza.png",
+      "timestamp": 1693913202000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/upma.png",
+      "timestamp": 1693913204000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/paneer-parantha.png",
+      "timestamp": 1693913200000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/peanut-poha.png",
+      "timestamp": 1693913201000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/uttapam.jpeg",
+      "timestamp": 1694586768000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/background.png",
+      "timestamp": 1696359316000
     }
   ],
   "contentDelivery": {

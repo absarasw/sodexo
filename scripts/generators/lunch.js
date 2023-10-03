@@ -156,8 +156,15 @@ export default class HtmlGenerator {
 
 
     static getDayOfWeek = () => {
-        const now = new Date();
-        const dayOfWeekNumber = now.getDay();
+        var currentTime = new Date();
+
+        var currentOffset = currentTime.getTimezoneOffset();
+
+        var ISTOffset = 330;   // IST offset UTC +5:30
+
+        var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+        const dayOfWeekNumber = ISTTime.getDay();
         let dayOfWeek;
         switch (dayOfWeekNumber) {
             case 0:

@@ -53,11 +53,6 @@ export default async function scriptText(assets, menuHeadingText, assetLinkLists
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    const parseItem = (ItemString) => {
-        const lowered = ItemString.toLowerCase();
-        const hyphenatedString = lowered.replace(/\s+/g, '-');
-        return hyphenatedString;
-    }
 
     async function playAds() { //this function runs on loop and never stops working bcoz of the incrementad index it's always supposed to loop over the assets
         console.log("play ads is called");
@@ -150,7 +145,7 @@ export default async function scriptText(assets, menuHeadingText, assetLinkLists
             var numberOfVisibleItems = 0;
             for (let i = 0; i < headings.length; i++) {
                 if (!headings[i].classList.contains('hidden-heading')) {
-                    const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
+                    const item = headings[i].getElementsByTagName('h2')[0].textContent;
                     assetLinkLists.forEach(object => {
                         if (object.Asset.toLowerCase() === item.toLowerCase()) {
                             if (img1Flag == 0) {

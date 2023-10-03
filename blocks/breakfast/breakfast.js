@@ -151,7 +151,7 @@ export default async function decorate(block) {
         var numberOfVisibleItems = 0;
         for (let i = 0; i < headings.length; i++) {
           if(!headings[i].classList.contains('hidden-heading')){
-            const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
+            const item = headings[i].getElementsByTagName('h2')[0].textContent;
             assetLinkLists.forEach(object => {
               if(object.Asset.toLowerCase() === item.toLowerCase()){
                 if (img1Flag == 0) {
@@ -268,11 +268,7 @@ export default async function decorate(block) {
       throw new Error(`request to fetch ${url} failed with status code with error ${e}`);
     }
   }
-  const parseItem = (ItemString) => {
-    const lowered = ItemString.toLowerCase();
-    const hyphenatedString = lowered.replace(/\s+/g, '-');
-    return hyphenatedString;
-  }
+
   const generateChannelHTML = async (url) => {
     const sheetDetails = extractSheetData(url) || []; //object containing name which is futile and the link to schedules.json
     // var breakfastHeading = document.createElement('h1');

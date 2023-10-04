@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "timestamp": 1696362973000,
+  "timestamp": 1696401031000,
   "entries": [
     {
       "path": "/content/screens/sodexo/default-sodexo-channel.html",
@@ -32,7 +32,7 @@
     },
     {
       "path": "/blocks/lunch/lunch.js",
-      "timestamp": 1695199204000
+      "timestamp": 1696401031000
     }
   ],
   "contentDelivery": {

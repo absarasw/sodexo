@@ -1,7 +1,7 @@
 <html lang="en-US">
              <head>
                <title></title>
-               <script type="module">const assetsList = new Map(JSON.parse('[["COMBO MEAL",[[{"menuItem":"CHICKEN BIRYANI","calories":"281KCAL/120gms"},{"menuItem":"MIRCHI KA SALAN","calories":"10KCAL/100gms"},{"menuItem":"MASALA ONION","calories":"43KCAL/50gms"},{"menuItem":"PHIRNI","calories":"177KCAL/80gms"},{"menuItem":"VEG MURADABADI BIRYANI","calories":"281KCAL/120gms"}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch1.jpeg"]],["HOME FAVOURITE",[[{"menuItem":"MIX GREEN SALAD","calories":"30KCAL/50gms"},{"menuItem":"CUCUMBER RAITA","calories":"80KCAL/250gms"},{"menuItem":"KADAI SUBZ","calories":"106KCAL/100gms"},{"menuItem":"PANEER DO PYAZA","calories":"236KCAL/150gms"},{"menuItem":"DAL BLACK MASOOR","calories":"108KCAL/150gms"},{"menuItem":"STEAMED RICE","calories":"97KCAL/100gms"},{"menuItem":"BUTTER CHICKEN","calories":"180KCAL/150gms"}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch2.jpeg"]],["DELIGHT",[[{"menuItem":"MIX GREEN SALAD","calories":"30KCAL/50gms"},{"menuItem":"CUCUMBER RAITA","calories":"80KCAL/250gms"},{"menuItem":"KADAI SUBZ","calories":"106KCAL/100gms"},{"menuItem":"PANEER DO PYAZA","calories":"236KCAL/150gms"},{"menuItem":"DAL BLACK MASOOR","calories":"108KCAL/150gms"},{"menuItem":"STEAMED RICE","calories":"97KCAL/100gms"},{"menuItem":"BUTTER CHICKEN","calories":"180KCAL/150gms"}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch3.jpeg"]]]')) ; const startTime = '00:45'; const endTime = '18:30'; 
+               <script type="module">const assetsList = new Map(JSON.parse('[["COMBO MEAL",[[{"menuItem":"Garden Green Salad","calories":""},{"menuItem":"Tomato Tortilla Soup","calories":""},{"menuItem":"Malai Paneer Rista","calories":""},{"menuItem":"Bhaigan bharta","calories":""},{"menuItem":"Steam Rice","calories":""},{"menuItem":"Nilgiri Pulao","calories":""},{"menuItem":"Pulka","calories":""},{"menuItem":"Kerala Mutton Roast","calories":""},{"menuItem":"Besan Ladoo","calories":""},{"menuItem":"Cut Fruit","calories":""}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch1.jpeg"]],["HOME FAVOURITE",[[{"menuItem":"Chicken Beliram","calories":""},{"menuItem":"Matra","calories":""},{"menuItem":"Kulcha","calories":""},{"menuItem":"Masala Onion with Mint chutney","calories":""},{"menuItem":"Shahi Tukda","calories":""}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch2.jpeg"]],["DELIGHT",[[{"menuItem":"Chicken Beliram","calories":""},{"menuItem":"Matra","calories":""},{"menuItem":"Kulcha","calories":""},{"menuItem":"Masala Onion with Mint chutney","calories":""},{"menuItem":"Shahi Tukda","calories":""}],"https://main--sodexo--absarasw.hlx.live/content/screens/assets/Lunch/lunch3.jpeg"]]]')) ; const startTime = '00:45'; const endTime = '18:30'; 
     let containerId = 0;
     const carouselContainerList = [];
 
@@ -112,7 +112,10 @@
                 itemEntry.classList.add('itemEntry');
                 const heading = document.createElement('h2');
                 heading.classList.add('itemName');
-                heading.textContent = asset.menuItem + ' (' + asset.calories + ')';
+                heading.textContent = asset.menuItem;
+                if(asset.calories) {
+                    heading.textContent = `${heading.textContent} (' + asset.calories + ')`;
+                }
                 itemEntry.appendChild(heading);
                 headingsDiv.appendChild(itemEntry);
             });
@@ -131,6 +134,12 @@
                     numberOfVisibleItems++;
                 }
             }
+
+            const numContainer = carouselContainerList.length;
+            if(numberOfVisibleItems === 0) {
+                containerId = (containerId + 1) % numContainer;
+                continue;
+            }
             const maxHeight = 600 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
             const maxFontSize = 40; // Define the maximum font size you want to apply
 
@@ -141,8 +150,6 @@
             for (let i = 0; i < h2Elements.length; i++) {
                 h2Elements[i].style.fontSize = finalFontSize + 'px';
             }
-
-            const numContainer = carouselContainerList.length;
 
             const prev = (containerId + numContainer - 1) % numContainer;
             carouselContainerList[containerId].classList.add('carousel-container-show');

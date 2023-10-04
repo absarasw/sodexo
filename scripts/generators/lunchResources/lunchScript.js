@@ -109,7 +109,10 @@ export default async function scriptText(assetsList) {
                 itemEntry.classList.add('itemEntry');
                 const heading = document.createElement('h2');
                 heading.classList.add('itemName');
-                heading.textContent = asset.menuItem + ' (' + asset.calories + ')';
+                heading.textContent = asset.menuItem;
+                if(asset.calories) {
+                    heading.textContent = `${heading.textContent} (' + asset.calories + ')`;
+                }
                 itemEntry.appendChild(heading);
                 headingsDiv.appendChild(itemEntry);
             });

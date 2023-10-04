@@ -181,6 +181,7 @@ export default async function decorate(block) {
             numberOfVisibleItems++;
           }
         }
+        const numContainer = carouselContainerList.length;
         if(numberOfVisibleItems === 0) {
           containerId = (containerId + 1) % numContainer;
           continue;
@@ -195,8 +196,7 @@ export default async function decorate(block) {
         for (let i = 0; i < h2Elements.length; i++) {
           h2Elements[i].style.fontSize = finalFontSize + 'px';
         }
-
-        const numContainer = carouselContainerList.length;
+        
 
         const prev = (containerId + numContainer - 1) % numContainer;
         carouselContainerList[containerId].classList.add('carousel-container-show');

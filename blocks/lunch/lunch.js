@@ -181,6 +181,10 @@ export default async function decorate(block) {
             numberOfVisibleItems++;
           }
         }
+        if(numberOfVisibleItems === 0) {
+          containerId = (containerId + 1) % numContainer;
+          continue;
+        }
         const maxHeight = 600 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
         const maxFontSize = 40; // Define the maximum font size you want to apply
 

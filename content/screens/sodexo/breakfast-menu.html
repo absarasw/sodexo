@@ -1,7 +1,7 @@
 <html lang="en-US">
              <head>
                <title></title>
-               <script type="module">const menuHeadingText = "BREAKFAST MENU"; const assetLinkLists = JSON.parse('["/content/screens/sodexo/sodexo-content/pizza.png","/content/screens/sodexo/sodexo-content/upma.png","/content/screens/sodexo/sodexo-content/paneer-parantha.png","/content/screens/sodexo/sodexo-content/peanut-poha.png","/content/screens/sodexo/sodexo-content/uttapam.jpeg"]'); const assets = JSON.parse('[{"menuItem":"UPMA","price":"20","day":"Wednesday"},{"menuItem":"UTTAPAM","price":"40","day":"Wednesday"},{"menuItem":"IDLI SAMBAAR","price":"30","day":"Wednesday"},{"menuItem":"BOILED EGG","price":"18","day":"Wednesday"},{"menuItem":"TOFU RICE","price":"50","day":"Wednesday"},{"menuItem":"Maggi","price":"30","day":"Wednesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Monday"},{"menuItem":"PANEER PARANTHA","price":"15","day":"Monday"},{"menuItem":"BREAD OMELETTE","price":"18","day":"Monday"},{"menuItem":"BOILED EGG","price":"08","day":"Monday"},{"menuItem":"HALF FRY","price":"17","day":"Monday"},{"menuItem":"FULL FRY","price":"17","day":"Monday"},{"menuItem":"UPMA","day":"Saturday"},{"menuItem":"UTTAPAM","day":"Saturday"},{"menuItem":"IDLI SAMBAAR","day":"Saturday"},{"menuItem":"BOILED EGG","day":"Saturday"},{"menuItem":"TOFU RICE","day":"Saturday"},{"menuItem":"PIZZA","price":"80","day":"Tuesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Tuesday"},{"menuItem":"BOILED EGGS","price":"20","day":"Tuesday"},{"menuItem":"OMELETTE","price":"30","day":"Tuesday"},{"menuItem":"UPMA","day":"Friday"},{"menuItem":"UTTAPAM","day":"Friday"},{"menuItem":"IDLI SAMBAAR","day":"Friday"},{"menuItem":"BOILED EGG","day":"Friday"},{"menuItem":"TOFU RICE","day":"Friday"},{"menuItem":"PEANUT POHA","price":"29","day":"Thursday"},{"menuItem":"PANEER PARANTHA","price":"15","day":"Thursday"},{"menuItem":"BREAD OMELETTE","price":"18","day":"Thursday"},{"menuItem":"BOILED EGG","price":"08","day":"Thursday"},{"menuItem":"HALF FRY","price":"17","day":"Thursday"},{"menuItem":"FULL FRY","price":"17","day":"Thursday"},{"menuItem":"PANEER PARANTHA","day":"Sunday"},{"menuItem":"PEANUT POHA","day":"Sunday"},{"menuItem":"BREAD OMELETTE","day":"Sunday"},{"menuItem":"BOILED EGG","day":"Sunday"}]');  
+               <script type="module">const menuHeadingText = "BREAKFAST MENU"; const assetLinkLists = JSON.parse('[{"Asset":"Pizza","ItemLink":"/content/screens/sodexo/sodexo-content/pizza.png"},{"Asset":"Upma","ItemLink":"/content/screens/sodexo/sodexo-content/upma.png"},{"Asset":"Paneer Parantha","ItemLink":"/content/screens/sodexo/sodexo-content/paneer-parantha.png"},{"Asset":"Peanut Poha","ItemLink":"/content/screens/sodexo/sodexo-content/peanut-poha.png"},{"Asset":"Uttapam","ItemLink":"/content/screens/sodexo/sodexo-content/uttapam.jpeg"},{"Asset":"Semiyan Upma / Tomato Chutney","ItemLink":"/content/screens/sodexo/sodexo-content/semiyan-upma.png"},{"Asset":"Aloo Parantha/Pickle","ItemLink":"/content/screens/sodexo/sodexo-content/aloo-parantha.jpeg"},{"Asset":"Cornflakes with Milk","ItemLink":"/content/screens/sodexo/sodexo-content/cornflakes-milk.jpeg"},{"Asset":"Kanchipuram Idly / Sambhar / Coconut Chutney","ItemLink":"/content/screens/sodexo/sodexo-content/kanchipuram-idly.jpeg"},{"Asset":"Vegetable Poha / Chutney","ItemLink":"/content/screens/sodexo/sodexo-content/veg-poha.jpeg"},{"Asset":"Sabudana Khichadi","ItemLink":"/content/screens/sodexo/sodexo-content/sabudana-khichadi.jpeg"}]'); const assets = JSON.parse('[{"menuItem":"PIZZA","price":"80","day":"Tuesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Tuesday"},{"menuItem":"BOILED EGGS","price":"20","day":"Tuesday"},{"menuItem":"OMELETTE","price":"30","day":"Tuesday"},{"menuItem":"PANEER PARANTHA","day":"Sunday"},{"menuItem":"PEANUT POHA","day":"Sunday"},{"menuItem":"BREAD OMELETTE","day":"Sunday"},{"menuItem":"BOILED EGG","day":"Sunday"},{"menuItem":"Kanchipuram Idly / Sambhar / Coconut Chutney","price":"","day":"Thursday"},{"menuItem":"Vegetable Poha / Chutney","price":"","day":"Thursday"},{"menuItem":"Cornflakes with Milk","price":"","day":"Thursday"},{"menuItem":"Boiled Egg","price":"","day":"Thursday"},{"menuItem":"sarda","price":"","day":"Thursday"},{"menuItem":"Sabudana Khichadi","price":"","day":"Friday"},{"menuItem":"Aloo Pyaz Paratha / Curd","price":"","day":"Friday"},{"menuItem":"Cornflakes with Milk","price":"","day":"Friday"},{"menuItem":"Spinach Omlette","price":"","day":"Friday"},{"menuItem":"Papaya","price":"","day":"Friday"},{"menuItem":"UPMA","price":"","day":"Saturday"},{"menuItem":"UTTAPAM","price":"","day":"Saturday"},{"menuItem":"IDLI SAMBAAR","price":"","day":"Saturday"},{"menuItem":"BOILED EGG","price":"","day":"Saturday"},{"menuItem":"TOFU RICE","price":"","day":"Saturday"},{"menuItem":"Semiyan Upma / Tomato Chutney","price":"","day":"Wednesday"},{"menuItem":"Aloo Parantha/Pickle","price":"","day":"Wednesday"},{"menuItem":"Cornflakes with Milk","price":"","day":"Wednesday"},{"menuItem":"Cheese Omlette","price":"","day":"Wednesday"},{"menuItem":"Watermelon","price":"","day":"Wednesday"},{"menuItem":"PEANUT POHA","price":"29","day":"Monday"},{"menuItem":"PANEER PARANTHA","price":"15","day":"Monday"},{"menuItem":"BREAD OMELETTE","price":"18","day":"Monday"},{"menuItem":"BOILED EGG","price":"08","day":"Monday"},{"menuItem":"HALF FRY","price":"17","day":"Monday"},{"menuItem":"FULL FRY","price":"17","day":"Monday"}]');  
     console.log('script text is called');
     console.log(assets);
 
@@ -56,11 +56,6 @@
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    const parseItem = (ItemString) => {
-        const lowered = ItemString.toLowerCase();
-        const hyphenatedString = lowered.replace(/\s+/g, '-');
-        return hyphenatedString;
-    }
 
     async function playAds() { //this function runs on loop and never stops working bcoz of the incrementad index it's always supposed to loop over the assets
         console.log("play ads is called");
@@ -80,7 +75,6 @@
         const img2 = document.createElement('img');
         photoDiv.appendChild(img1);
         photoDiv.appendChild(img2);
-        console.log(assetLinkLists);
         assets.forEach(asset => {
             const itemEntry = document.createElement('div');
             itemEntry.classList.add('itemEntry');
@@ -154,26 +148,26 @@
             var numberOfVisibleItems = 0;
             for (let i = 0; i < headings.length; i++) {
                 if (!headings[i].classList.contains('hidden-heading')) {
-                    const item = parseItem(headings[i].getElementsByTagName('h2')[0].textContent);
-                    assetLinkLists.forEach(link => {
-                        if (link.includes(item)) {
+                    const item = headings[i].getElementsByTagName('h2')[0].textContent;
+                    assetLinkLists.forEach(object => {
+                        if (object.Asset.toLowerCase() === item.toLowerCase()) {
                             if (img1Flag == 0) {
                                 console.log(item);
                                 const image = new Image();
                                 image.onload = () => {
                                     // Once the image is loaded, update the img tag's src attribute
-                                    img1.src = link;
+                                    img1.src = object.ItemLink;
                                 };
-                                image.src = link;
+                                image.src = object.ItemLink;
                                 img1Flag = 1;
                             } else {
                                 console.log(item);
                                 const image = new Image();
                                 image.onload = () => {
                                     // Once the image is loaded, update the img tag's src attribute
-                                    img2.src = link;
+                                    img2.src = object.ItemLink;
                                 };
-                                image.src = link;
+                                image.src = object.ItemLink;
                             }
                         }
                     });

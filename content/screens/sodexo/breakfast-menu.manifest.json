@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1696362973000,
+  "timestamp": 1696397456830,
   "entries": [
     {
       "path": "/content/screens/sodexo/breakfast-menu.html",
-      "timestamp": 1696354966000
+      "timestamp": 1696397456830
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -28,7 +28,7 @@
     },
     {
       "path": "/blocks/breakfast/breakfast.js",
-      "timestamp": 1696362973000
+      "timestamp": 1696370162000
     },
     {
       "path": "/content/screens/sodexo/sodexo-content/pizza.png",
@@ -49,6 +49,30 @@
     {
       "path": "/content/screens/sodexo/sodexo-content/uttapam.jpeg",
       "timestamp": 1694586768000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/semiyan-upma.png",
+      "timestamp": 1696369063000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/aloo-parantha.jpeg",
+      "timestamp": 1696369507000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/cornflakes-milk.jpeg",
+      "timestamp": 1696369715000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/kanchipuram-idly.jpeg",
+      "timestamp": 1696370756000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/veg-poha.jpeg",
+      "timestamp": 1696370998000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/sabudana-khichadi.jpeg",
+      "timestamp": 1696371209000
     },
     {
       "path": "/content/screens/sodexo/sodexo-content/background.png",

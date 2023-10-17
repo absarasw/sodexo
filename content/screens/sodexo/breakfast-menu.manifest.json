@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1696371469000,
+  "timestamp": 1697545996619,
   "entries": [
     {
       "path": "/content/screens/sodexo/breakfast-menu.html",
-      "timestamp": 1696354966000
+      "timestamp": 1697545996619
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -77,6 +77,26 @@
     {
       "path": "/content/screens/sodexo/sodexo-content/aloo-pyaz-paratha.jpeg",
       "timestamp": 1696371469000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/oats-ragi-uttapam.jpeg",
+      "timestamp": 1697543838000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/pancakes-with-honey-maple-syrup.jpeg",
+      "timestamp": 1697544034000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/rawa-vada-sambhar.jpeg",
+      "timestamp": 1697544399000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/pyaz-ka-paratha.jpeg",
+      "timestamp": 1697544574000
+    },
+    {
+      "path": "/content/screens/sodexo/sodexo-content/palak-peas-idly.jpeg",
+      "timestamp": 1697545607000
     },
     {
       "path": "/content/screens/sodexo/sodexo-content/background.png",

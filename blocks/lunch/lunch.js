@@ -162,7 +162,7 @@ export default async function decorate(block) {
           heading.classList.add('itemName');
           heading.textContent = asset.menuItem;
           if(asset.calories) {
-            heading.textContent = `${heading.textContent} (' + asset.calories + ')`;
+            heading.textContent = `${heading.textContent} ( + ${asset.calories} + )`;
           }
           itemEntry.appendChild(heading);
           headingsDiv.appendChild(itemEntry);

@@ -186,7 +186,7 @@ export default async function decorate(block) {
           containerId = (containerId + 1) % numContainer;
           continue;
         }
-        const maxHeight = 600 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
+        const maxHeight = 450 - 10 * numberOfVisibleItems; // Define the maximum height you want the h2 elements to occupy
         const maxFontSize = 40; // Define the maximum font size you want to apply
 
         const suitableFontSize = maxHeight / numberOfVisibleItems;
@@ -196,7 +196,7 @@ export default async function decorate(block) {
         for (let i = 0; i < h2Elements.length; i++) {
           h2Elements[i].style.fontSize = finalFontSize + 'px';
         }
-        
+
 
         const prev = (containerId + numContainer - 1) % numContainer;
         carouselContainerList[containerId].classList.add('carousel-container-show');

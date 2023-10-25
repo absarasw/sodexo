@@ -2,7 +2,7 @@
   "channels": [
     {
       "manifestPath": "/content/screens/sodexo/lunch-menu-home-fav.manifest.json",
-      "lastModified": "2023-10-25T06:23:54.375Z",
+      "lastModified": "2023-10-25T06:29:46.010Z",
       "externalId": "/content/screens/sodexo/lunch-menu-home-fav",
       "title": "LUNCH-MENU",
       "liveUrl": "https://sodexo.aem-screens.net/content/screens/sodexo/lunch-menu-home-fav.html"

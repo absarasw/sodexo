@@ -73,11 +73,8 @@ export default async function decorate(block) {
       const img2 = document.createElement('img');
       photoDiv.appendChild(img1);
       photoDiv.appendChild(img2);
-      const listUrl = '/content/screens/sodexo/sodexo-content/list-of-assets.json';
-      const assetLinkListObjects = JSON.parse(await fetchData(listUrl));
-      const assetLinkLists = assetLinkListObjects.data;
-
-      console.log(assetLinkLists);
+      img1.src = '/content/screens/assets/Breakfast/breakfast1.jpeg';
+      img2.src = '/content/screens/assets/Breakfast/breakfast2.jpeg';
       assets.forEach(asset => {
         const itemEntry = document.createElement('div');
         itemEntry.classList.add('itemEntry');
@@ -147,35 +144,9 @@ export default async function decorate(block) {
             }
           }
         }
-        var img1Flag = 0;
         var numberOfVisibleItems = 0;
         for (let i = 0; i < headings.length; i++) {
-          if(!headings[i].classList.contains('hidden-heading')){
-            const item = headings[i].getElementsByTagName('h2')[0].textContent;
-            assetLinkLists.forEach(object => {
-              if(object.Asset.toLowerCase() === item.toLowerCase()){
-                if (img1Flag == 0) {
-                  console.log(item);
-                  const image = new Image();
-                  image.onload = () => {
-                    // Once the image is loaded, update the img tag's src attribute
-                    img1.src = object.ItemLink;
-                  };
-                  image.src = object.ItemLink;
-                  img1Flag = 1;
-                }else{
-                  console.log(item);
-                  const image = new Image();
-                  image.onload = () => {
-                    // Once the image is loaded, update the img tag's src attribute
-                    img2.src = object.ItemLink;
-                  };
-                  image.src = object.ItemLink;
-                }
-              }
-            });
-            console.log(img1.src);
-            console.log(img2.src);
+          if(!headings[i].classList.contains('hidden-heading')) {
             numberOfVisibleItems++;
           }
         }

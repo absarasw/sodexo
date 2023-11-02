@@ -83,6 +83,9 @@ export default async function decorate(block) {
         const price = document.createElement('h2');
         price.classList.add('price');
         heading.textContent = asset.menuItem;
+        if(asset.calories) {
+          heading.textContent = `${heading.textContent}  ${asset.calories} `;
+        }
         price.textContent = '@' + asset.price + '/-';
         itemEntry.appendChild(heading);
         itemEntry.appendChild(price);
@@ -267,6 +270,7 @@ export default async function decorate(block) {
             assets.push({
               'menuItem': assetDetails['Menu Item'],
               'price': assetDetails['Price'],
+              'calories': assetDetails['Calories'],
               'day': assetDetails['day']
             });
           } catch (err) {

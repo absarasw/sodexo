@@ -72,6 +72,7 @@ export default class HtmlGenerator {
                     assets.push({
                         'menuItem': assetDetails['Menu Item'],
                         'price': assetDetails['Price'],
+                        'calories': assetDetails['Calories'],
                         'day': assetDetails['day']
                     });
                 } catch (err) {
@@ -106,6 +107,8 @@ export default class HtmlGenerator {
 
 
         staticAssetLinkLists.push("/content/screens/sodexo/sodexo-content/background.png");//adding background image for manifest
+        staticAssetLinkLists.push('/content/screens/assets/Breakfast/breakfast1.jpeg');
+        staticAssetLinkLists.push('/content/screens/assets/Breakfast/breakfast2.jpeg');
         console.log("assetLists = " + staticAssetLinkLists);
         return staticAssetLinkLists;
     }

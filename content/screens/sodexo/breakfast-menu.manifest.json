@@ -1,10 +1,10 @@
 {
   "version": "3.0",
-  "timestamp": 1698642655000,
+  "timestamp": 1698907832994,
   "entries": [
     {
       "path": "/content/screens/sodexo/breakfast-menu.html",
-      "timestamp": 1696354966000
+      "timestamp": 1698907832994
     },
     {
       "path": "/scripts/lib-franklin.js",
@@ -28,7 +28,7 @@
     },
     {
       "path": "/blocks/breakfast/breakfast.js",
-      "timestamp": 1698642655000
+      "timestamp": 1698907728000
     },
     {
       "path": "/content/screens/sodexo/sodexo-content/pizza.png",
@@ -101,6 +101,14 @@
     {
       "path": "/content/screens/sodexo/sodexo-content/background.png",
       "timestamp": 1696359316000
+    },
+    {
+      "path": "/content/screens/assets/Breakfast/breakfast1.jpeg",
+      "timestamp": 1698418328000
+    },
+    {
+      "path": "/content/screens/assets/Breakfast/breakfast2.jpeg",
+      "timestamp": 1698418328000
     }
   ],
   "contentDelivery": {

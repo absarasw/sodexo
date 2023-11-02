@@ -113,7 +113,7 @@ export default class HtmlGenerator {
         });
         console.log(`HTML saved at ${path}.html`);
 
-        additionalAssets.push("/content/screens/sodexo/sodexo-content/background.png"); //adding background image for manifest
+        additionalAssets.push("/content/screens/sodexo/sodexo-content/background1.png"); //adding background image for manifest
         return additionalAssets;
     }
     static createCSS = () => {
